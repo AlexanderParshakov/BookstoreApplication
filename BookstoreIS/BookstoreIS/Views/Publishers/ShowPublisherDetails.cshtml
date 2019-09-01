@@ -1,0 +1,111 @@
+﻿@model IEnumerable<object>
+
+@{
+    List<BookstoreIS.ТаблицаИздательств> listPublishers = Model.ToList()[0] as List<BookstoreIS.ТаблицаИздательств>;
+    List<BookstoreIS.ТаблицаКниг> listBooks = Model.ToList()[1] as List<BookstoreIS.ТаблицаКниг>;
+    List<string> listGenres = Model.ToList()[2] as List<string>;
+    List<string> listAuthors = Model.ToList()[3] as List<string>;
+}
+@{
+    ViewBag.Title = "Информация об издательстве";
+}
+
+
+@foreach (var item in listPublishers)
+{
+    string title = null;
+    title += item.НазваниеИздательства;
+    <h2>@title</h2>
+
+}
+
+
+
+@foreach (var item in listPublishers)
+{
+    <div>
+        <h4>Информация об издательстве</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>Номер в системе:</dt>
+            <dd>
+                @Html.DisplayFor(model => item.КодИздательства)
+            </dd>
+
+            <dt>Название:</dt>
+            <dd>
+                @Html.DisplayFor(model => item.НазваниеИздательства)
+            </dd>
+
+            <dt>Город:</dt>
+            <dd>
+                @Html.DisplayFor(model => item.Город)
+            </dd>
+
+            <dt>Улица:</dt>
+            <dd>
+                @Html.DisplayFor(model => item.Улица)
+            </dd>
+
+            <dt>Номер дома:</dt>
+            <dd>
+                @Html.DisplayFor(model => item.Дом)
+            </dd>
+        </dl>
+    </div>
+
+    <p>
+        <hr />
+@if (Session["CurrentAdmin"] != null)
+{
+        @Html.ActionLink("Редактировать", "Edit", new { id = item.КодИздательства })
+}
+        @Html.ActionLink("Назад к списку издательств", "Index")
+    </p>
+}
+
+<h3> Книги от издательства</h3>
+<table class="table">
+    <tr>
+        <th>ISBN</th>
+        <th>Название</th>
+        <th>Автор(ы)</th>
+        <th>Жанр</th>
+        <th>Год выпуска</th>
+        <th>Переплет</th>
+        <th></th>
+    </tr>
+
+    @for (int i = 0; i < listBooks.Count; i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].НазваниеКниги)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listAuthors[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listGenres[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].ГодВыпуска)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].Переплет)
+            </td>
+            <td>
+@if (Session["CurrentAdmin"] != null)
+{
+                @Html.ActionLink("Редактировать", "Edit", new { id = listBooks[i].ISBN }) 
+}
+                @Html.ActionLink("Подробнее", "ShowBookDetails", new { ISBN = listBooks[i].ISBN }) 
+
+            </td>
+        </tr>
+    }
+
+</table>

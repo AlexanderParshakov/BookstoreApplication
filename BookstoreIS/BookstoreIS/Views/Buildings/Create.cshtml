@@ -1,0 +1,121 @@
+﻿@model int
+
+@{
+    int incremented = Model + 1;
+}
+@{
+    ViewBag.Title = "Добавление нового магазина или склада";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <script type="text/javascript">
+        function ChangeCover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#EditablePicture')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
+
+
+<h2>Новое здание</h2>
+
+@using (Html.BeginForm("SaveNewBuilding", "Buildings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Код здания: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="number" value="@Model" name="BuildingCode" style="width: 1500px" class="form-control" required readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Название: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Name" placeholder="Введите название здания..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Город: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="City" placeholder="Введите город..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Улица: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Street" placeholder="Введите улицу..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Номер дома: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Number" placeholder="Введите номер дома..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Этаж: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="number" name="Floor" placeholder="Введите номер этажа..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Назначение: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="Usage" required>
+                        <option>Магазин</option>
+                    <option>Склад</option>
+                </select>
+            </div>
+        </div>
+        <form action="SaveNewAuthor" method="post" enctype="multipart/form-data" id="SaveForm">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <br />
+                    <div>
+                        <br />
+                        <br />
+                        <text style=" color:chartreuse; font-weight: 600">Хотите ли Вы добавить здание с вышеуказанными данными?</text>
+                        <br />
+                        <br />
+                    </div>
+                    <input type="submit" value="Добавить здание" class="btn btn-default" id="submit" />
+                    <br />
+                </div>
+            </div>
+        </form>
+    </div>
+}

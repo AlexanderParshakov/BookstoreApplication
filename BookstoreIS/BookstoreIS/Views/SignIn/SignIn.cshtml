@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Авторизация";
+}
+
+<h2>Авторизация в качестве администратора</h2>
+
+@using (Html.BeginForm("LoggingIn", "SignIn", FormMethod.Post))
+{
+        <div class="col-md-10">
+            <div>
+                <input type="text" name="Login" placeholder="Логин..." style="width: 1500px" class="form-control" \>
+                <br />
+            </div>
+            <div>
+                <input type="password" name="Password" placeholder="Пароль..." style="width: 1500px" class="form-control" \>
+                <br />
+            </div>
+            <div>
+                <form class="form-control" action="SignIn" method="get">
+                    <input type="submit" style="width: 1500px" class="form-control" value="Войти">
+                    <br />
+                </form>
+            </div>
+        </div>
+}
+

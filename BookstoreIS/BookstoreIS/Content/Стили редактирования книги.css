@@ -1,0 +1,181 @@
+﻿#SelectAuthor {
+    position: absolute;
+    top: 210px;
+    left: 1000px;
+}
+#HeadingAuthor {
+    position: absolute;
+    top: 150px;
+    left: 1050px;
+}
+#AddAuthor {
+    position: absolute;
+    top: 250px;
+    left: 1000px;
+}
+#RemoveAuthor {
+    position: absolute;
+    top: 250px;
+    left: 1160px;
+}
+#AuthorSuccess {
+    position: relative;
+    top: -925px;
+    left: 630px;
+    max-width: 300px;
+}
+#ErrorMessage {
+    position: absolute;
+    top: 300px;
+    left: 760px;
+    max-width: 300px;
+}
+
+
+
+#SelectBuilding {
+    position: absolute;
+    top: 360px;
+    left: 1000px;
+}
+#HeadingBuilding {
+    position: absolute;
+    top: 300px;
+    left: 970px;
+}
+#AddBuilding {
+    position: absolute;
+    top: 445px;
+    left: 1000px;
+}
+#RemoveBuilding {
+    position: absolute;
+    top: 445px;
+    left: 1160px;
+}
+#PriceInput {
+    position: absolute;
+    top: 400px;
+    left: 1070px;
+    max-width: 210px;
+}
+#PriceLabel {
+    position: absolute;
+    top: 403px;
+    left: 1010px;
+    max-width: 150px;
+    font-weight: 600;
+    font-size: large;
+    font-stretch:extra-expanded;
+}
+#BuildingSuccess {
+    position: absolute;
+    top: 485px;
+    left: 700px;
+    max-width: 400px;
+}
+
+
+
+
+
+#SelectPublisher {
+    position: absolute;
+    top: 560px;
+    left: 1000px;
+}
+
+#HeadingPublisher {
+    position: absolute;
+    top: 500px;
+    left: 1030px;
+}
+
+#AddPublisher {
+    position: absolute;
+    top: 600px;
+    left: 1000px;
+}
+
+#RemovePublisher {
+    position: absolute;
+    top: 600px;
+    left: 1160px;
+}
+#PublisherSuccess {
+    position: absolute;
+    top: 640px;
+    left: 730px;
+    max-width: 400px;
+}
+
+
+
+#SelectGenre {
+    position: absolute;
+    top: 710px;
+    left: 1000px;
+}
+#HeadingGenre {
+    position: absolute;
+    top: 650px;
+    left: 1060px;
+}
+#AddGenre {
+    position: absolute;
+    top: 750px;
+    left: 1000px;
+}
+#RemoveGenre {
+    position: absolute;
+    top: 750px;
+    left: 1160px;
+}
+#GenreSuccess {
+    position: absolute;
+    top: 790px;
+    left: 730px;
+    max-width: 400px;
+}
+
+
+#VerticalLine1 {
+    width: 4px;
+    height: 1150px;
+    background-color: gold;
+    position: absolute;
+    top: 153px;
+    left: 830px;
+}
+#VerticalLine2 {
+    width: 4px;
+    height: 1150px;
+    background-color: gold;
+    position: absolute;
+    top: 153px;
+    left: 1430px;
+}
+#VerticalLine3 {
+    width: 4px;
+    height: 1150px;
+    background-color: gold;
+    position: absolute;
+    top: 153px;
+    left: 294px;
+}
+
+hr {
+    height: 4px;
+    background-color: gold;
+    position: relative;
+    top: -1px;
+}
+
+
+#HeadingBook{
+    text-align: center;
+}
+
+#HeadingChange {
+    text-align: center;
+}

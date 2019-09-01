@@ -1,0 +1,104 @@
+﻿@model ТаблицаАвторов
+
+@{
+    ViewBag.Title = "Изменение данных об авторе";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <script type="text/javascript">
+        function ChangeCover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#EditablePicture')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
+
+
+<h2>Изменение данных об авторе</h2>
+
+@using (Html.BeginForm("SaveChanges", "Authors", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Код автора: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="number" value="@Model.КодАвтора" name="AuthorCode" style="width: 1500px" class="form-control" required readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Имя: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Name" value="@Model.Имя" placeholder="Введите имя автора..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Отчество: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Patronymic" value="@Model.Отчество" placeholder="Введите отчество автора..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Фамилия: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Surname" value="@Model.Фамилия" placeholder="Введите фамилию автора..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            @if (Model.Фотография != null)
+            {
+            var base64 = Convert.ToBase64String(Model.Фотография);
+            var imgsrc = string.Format("data:image/gif;base64, {0}", base64);
+            <img src="@imgsrc" style=" max-width: 300px; max-height: 400px" class="col-md-10" id="EditablePicture" alt="У этого автора еще нет фотографии. Вы можете ее загрузить." />
+            }
+            @if (Model.Фотография == null)
+            {
+            <img style=" max-width: 500px; max-height: 400px" class="col-md-10" id="EditablePicture" alt="У этого автора еще нет фотографии." />
+            }
+        </div>
+        <form action="SaveChanges" method="post" enctype="multipart/form-data" id="SaveForm">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="file" name="file" value="Добавить фотографию" id="InputFileBook" onchange="ChangeCover(this);" />
+                    <br />
+                    <div>
+                        <br />
+                        <br />
+                        <text style=" color:chartreuse; font-weight: 600">Хотите ли Вы сохранить изменения?</text>
+                        <br />
+                        <br />
+                    </div>
+                    <input type="submit" value="Сохранить изменения" class="btn btn-default" id="submit" />
+                    <br />
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+}

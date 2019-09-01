@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BookstoreIS.ТаблицаАвторов>
+
+@{
+    ViewBag.Title = "Список авторов";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
+</head>
+<form action="ShowSearchedAuthors" method="post">
+    <br />
+    <input type="text" name="Surname" placeholder="  Введите фамилию искомого автора..." style="width: 1500px" class="form-control" id="AuthorSurnameSearch" />
+    <br />
+    <br />
+    <input type="submit" class="btn navbar-btn" value="Поиск" id="ButtonAuthorSearch" />
+</form>
+
+<h2 class="Heading">Авторы</h2>
+@if (Session["CurrentAdmin"] != null)
+{
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+}
+<table class="table">
+    <tr>
+        <th>
+            Код 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Имя)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Отчество)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Фамилия)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.КодАвтора)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Имя)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Отчество)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Фамилия)
+        </td>
+        <td>
+@if (Session["CurrentAdmin"] != null)
+{
+            @Html.ActionLink("Редактировать", "Edit", new { Id = item.КодАвтора }) 
+}
+            @Html.ActionLink("Подробнее", "ShowAuthorDetails", new { Id = item.КодАвтора }) 
+        </td>
+    </tr>
+}
+
+</table>

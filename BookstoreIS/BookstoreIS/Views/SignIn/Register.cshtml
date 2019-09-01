@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Регистрация нового администратора";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <script type="text/javascript">
+        function ChangeCover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#EditablePicture')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
+
+
+<h2>Добавление нового администратора</h2>
+
+@using (Ajax.BeginForm("SaveNewAdministrator", "SignIn", FormMethod.Post, new AjaxOptions { UpdateTargetId = "error" }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Имя: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Name" placeholder="Введите имя..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Отчество: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Patronymic" placeholder="Введите отчество..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Фамилия: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Surname" placeholder="Введите фамилию..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Логин: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Login" placeholder="Введите логин..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Пароль: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="password" name="Password1" placeholder="Введите пароль для аккаунта..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Повторите пароль: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="password" name="Password2" placeholder="Введите пароль для проверки..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <form>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <br />
+                    <div>
+                        <br />
+                        <br />
+                        <text style=" color:chartreuse; font-weight: 600">Хотите ли Вы добавить администратора с вышеуказанными данными?</text>
+                        <br />
+                        <br />
+                    </div>
+                    <input type="submit" value="Добавить администратора" class="btn btn-default" id="submit" />
+                    <br />
+                </div>
+            </div>
+        </form>
+        <div id="error">
+
+        </div>
+
+    </div>
+}

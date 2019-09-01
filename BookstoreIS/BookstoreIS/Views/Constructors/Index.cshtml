@@ -1,0 +1,140 @@
+﻿@model IEnumerable<object>
+@{
+    List<string> listBooks = Model.ToList()[0] as List<string>;
+    List<string> listAuthors = Model.ToList()[1] as List<string>;
+    List<string> listBuildings = Model.ToList()[2] as List<string>;
+    List<string> listPublishers = Model.ToList()[3] as List<string>;
+    List<string> listGenres = Model.ToList()[4] as List<string>;
+}
+@{
+    ViewBag.Title = "Конструкторы";
+}
+
+<h1>Конструкторы</h1>
+
+@using (Ajax.BeginForm("HandleAuthorConnection", "Contructors", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <h3>Добавить связь книги и автора</h3>
+        <form action="ConnectWithAuthor" method="post">
+            <select required class="form-control" name="BookLine" id="">
+                <option>Выберите книгу...</option>
+                @for (int i = 0; i < listBooks.Count; i++)
+                {
+                    <option>@listBooks[i]</option>
+                }
+            </select>
+            <select required class="form-control" name="AuthorLine" id="">
+                <option>Выберите автора...</option>
+                @for (int i = 0; i < listAuthors.Count; i++)
+                {
+                    <option>@listAuthors[i]</option>
+                }
+            </select>
+            <br />
+            <div id="message"></div>
+            <div>
+                <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" />
+                <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" />
+            </div>
+        </form>
+    </div>
+    <hr />
+}
+
+
+@using (Ajax.BeginForm("HandleBuildingConnection", "Contructors", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <form action="HandleBuildingConnection" method="post">
+            <h3>Добавить связь книги и здания</h3>
+            <select required class="form-control" name="BookLine" id="">
+                <option>Выберите книгу...</option>
+                @for (int i = 0; i < listBooks.Count; i++)
+                {
+                    <option>@listBooks[i]</option>
+                }
+            </select>
+            <select required class="form-control" name="BuildingLine" id="">
+                <option>Выберите здание...</option>
+                @for (int i = 0; i < listBuildings.Count; i++)
+                {
+                    <option>@listBuildings[i]</option>
+                }
+            </select>
+            <br />
+            <input type="number" name="Price" class="form-control"/>
+            <div id="message"></div>
+        </form>
+
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" />
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" />
+        </div>
+    </div>
+    <hr />
+}
+
+
+@using (Ajax.BeginForm("HandlePublisherConnection", "Contructors", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <form action="HandlePublisherConnection" method="post">
+            <h3>Добавить связь книги и издательства</h3>
+            <select required class="form-control" name="BookLine" id="">
+                <option>Выберите книгу...</option>
+                @for (int i = 0; i < listBooks.Count; i++)
+                {
+                    <option>@listBooks[i]</option>
+                }
+            </select>
+            <select required class="form-control" name="PublisherLine" id="">
+                <option>Выберите издательство...</option>
+                @for (int i = 0; i < listPublishers.Count; i++)
+                {
+                    <option>@listPublishers[i]</option>
+                }
+            </select>
+            <br />
+            <div id="message"></div>
+        </form>
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" />
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" />
+        </div>
+    </div>
+    <hr />
+}
+
+
+@using (Ajax.BeginForm("HandleGenreConnection", "Contructors", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <form action="HandleGenreConnection" method="post">
+            <h3>Добавить связь книги и жанра</h3>
+            <select required class="form-control" name="BookLine" id="">
+                <option>Выберите книгу...</option>
+                @for (int i = 0; i < listBooks.Count; i++)
+                {
+                    <option>@listBooks[i]</option>
+                }
+            </select>
+            <select required class="form-control" name="GenreLine" id="">
+                <option>Выберите жанр...</option>
+                @for (int i = 0; i < listGenres.Count; i++)
+                {
+                    <option>@listGenres[i]</option>
+                }
+            </select>
+            <br />
+            <div id="message"></div>
+        </form>
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" />
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" />
+        </div>
+    </div>
+    <hr />
+}
+
+

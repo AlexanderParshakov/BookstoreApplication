@@ -1,0 +1,120 @@
+﻿@model BookstoreIS.Администраторы
+
+@{ 
+    string Address = Model.Фамилия + " " + Model.Имя + " " + Model.Отчество;
+}
+@{
+    ViewBag.Title = "Личный кабинет";
+}
+
+<h2>Личный кабинет</h2>
+
+@using (Ajax.BeginForm("SaveNewSNP", "Account", FormMethod.Post, new AjaxOptions { UpdateTargetId = "error" }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Логин: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" value="@Model.Login" name="Login" placeholder="Введите логин..." style="width: 1500px" class="form-control" required readonly="readonly" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Имя: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" value="@Model.Имя" name="Name" placeholder="Введите имя..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Отчество: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" value="@Model.Отчество" name="Patronymic" placeholder="Введите отчество..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Фамилия: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" value="@Model.Фамилия" name="Surname" placeholder="Введите фамилию..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить изменения" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div id="error">
+
+    </div>
+    <hr />
+}
+
+@using (Ajax.BeginForm("ChangePassword", "Account", FormMethod.Post, new AjaxOptions { UpdateTargetId = "errorPassword" }, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div>
+            <label class=" control-label col-md-2">Старый пароль: </label>
+        </div>
+        <div class="col-md-10">
+            <input type="password" name="OldPassword" placeholder="Введите старый пароль..." style="width: 1500px" class="form-control" required />
+        </div>
+    </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Новый пароль: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="password" name="NewPassword1" placeholder="Введите новый пароль..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Повторите новый пароль: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="password" name="NewPassword2" placeholder="Введите новый пароль снова..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить новый пароль" class="btn btn-default" />
+            </div>
+        </div>
+        <div id="errorPassword">
+
+        </div>
+}
+<div>
+    @Html.ActionLink("Перейти к списку книг", "Index", "Books", new { }, new { }) |
+    @Html.ActionLink("Перейти к списку авторов", "Index", "Authors", new { }, new { }) |
+    @Html.ActionLink("Перейти к списку зданий", "Index", "Buildings", new { }, new { }) |
+    @Html.ActionLink("Перейти к списку издательств", "Index", "Publishers", new { }, new { }) 
+</div>
+<div>
+    @if (Session["Login"].ToString().Trim() == "Parshakov")
+    {
+        <hr />
+    @Html.ActionLink("Добавить нового администратора", "Register", "SignIn", new { }, new { })
+    }
+</div>

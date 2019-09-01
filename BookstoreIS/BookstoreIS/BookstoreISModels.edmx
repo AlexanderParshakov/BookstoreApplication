@@ -1,0 +1,674 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище BookstoreISContext" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="АвторКнига">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="КодАвтора" />
+          </Key>
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="КодАвтора" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Администраторы">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ЖанрыКниг">
+          <Key>
+            <PropertyRef Name="КодЖанра" />
+          </Key>
+          <Property Name="КодЖанра" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ИмяЖанра" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ЗданиеКнига">
+          <Key>
+            <PropertyRef Name="КодЗдания" />
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="КодЗдания" Type="int" Nullable="false" />
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ЦенаКниги" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="КнигаЖанр">
+          <Key>
+            <PropertyRef Name="КодЖанра" />
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="КодЖанра" Type="int" Nullable="false" />
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="КнигаИздательство">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="КодИздательства" />
+          </Key>
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="КодИздательства" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="КнигаОценки">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="КодСайта" />
+          </Key>
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="КодСайта" Type="int" Nullable="false" />
+          <Property Name="ОценкаПользователей" Type="float" />
+        </EntityType>
+        <EntityType Name="ТаблицаАвторов">
+          <Key>
+            <PropertyRef Name="КодАвтора" />
+          </Key>
+          <Property Name="КодАвтора" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Имя" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Отчество" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Фамилия" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Фотография" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ТаблицаЗданий">
+          <Key>
+            <PropertyRef Name="КодЗдания" />
+          </Key>
+          <Property Name="КодЗдания" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеЗдания" Type="nvarchar" MaxLength="50" />
+          <Property Name="Город" Type="nvarchar" MaxLength="50" />
+          <Property Name="Улица" Type="nvarchar" MaxLength="50" />
+          <Property Name="НомерЗдания" Type="nchar" MaxLength="10" />
+          <Property Name="Этаж" Type="int" />
+          <Property Name="Назначение" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ТаблицаИздательств">
+          <Key>
+            <PropertyRef Name="КодИздательства" />
+          </Key>
+          <Property Name="КодИздательства" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеИздательства" Type="nvarchar" MaxLength="50" />
+          <Property Name="Город" Type="nvarchar" MaxLength="50" />
+          <Property Name="Улица" Type="nvarchar" MaxLength="50" />
+          <Property Name="Дом" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ТаблицаКниг">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="НазваниеКниги" Type="nvarchar" MaxLength="50" />
+          <Property Name="ГодВыпуска" Type="nvarchar" MaxLength="50" />
+          <Property Name="Переплет" Type="nvarchar" MaxLength="50" />
+          <Property Name="КоличествоСтраниц" Type="int" />
+          <Property Name="ФорматКниги" Type="nvarchar" MaxLength="50" />
+          <Property Name="Обложка" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="ТаблицаСайтовСОценками">
+          <Key>
+            <PropertyRef Name="КодСайта" />
+          </Key>
+          <Property Name="КодСайта" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="НазваниеСайта" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_АвторКнига_ТаблицаАвторов">
+          <End Role="ТаблицаАвторов" Type="Self.ТаблицаАвторов" Multiplicity="1" />
+          <End Role="АвторКнига" Type="Self.АвторКнига" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаАвторов">
+              <PropertyRef Name="КодАвтора" />
+            </Principal>
+            <Dependent Role="АвторКнига">
+              <PropertyRef Name="КодАвтора" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_АвторКнига_ТаблицаКниг">
+          <End Role="ТаблицаКниг" Type="Self.ТаблицаКниг" Multiplicity="1" />
+          <End Role="АвторКнига" Type="Self.АвторКнига" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="АвторКнига">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ЗданиеКнига_ТаблицаЗданий">
+          <End Role="ТаблицаЗданий" Type="Self.ТаблицаЗданий" Multiplicity="1" />
+          <End Role="ЗданиеКнига" Type="Self.ЗданиеКнига" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаЗданий">
+              <PropertyRef Name="КодЗдания" />
+            </Principal>
+            <Dependent Role="ЗданиеКнига">
+              <PropertyRef Name="КодЗдания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ЗданиеКнига_ТаблицаКниг">
+          <End Role="ТаблицаКниг" Type="Self.ТаблицаКниг" Multiplicity="1" />
+          <End Role="ЗданиеКнига" Type="Self.ЗданиеКнига" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="ЗданиеКнига">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаЖанр_ЖанрыКниг">
+          <End Role="ЖанрыКниг" Type="Self.ЖанрыКниг" Multiplicity="1" />
+          <End Role="КнигаЖанр" Type="Self.КнигаЖанр" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ЖанрыКниг">
+              <PropertyRef Name="КодЖанра" />
+            </Principal>
+            <Dependent Role="КнигаЖанр">
+              <PropertyRef Name="КодЖанра" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаЖанр_ТаблицаКниг">
+          <End Role="ТаблицаКниг" Type="Self.ТаблицаКниг" Multiplicity="1" />
+          <End Role="КнигаЖанр" Type="Self.КнигаЖанр" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="КнигаЖанр">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаИздательство_ТаблицаИздательств">
+          <End Role="ТаблицаИздательств" Type="Self.ТаблицаИздательств" Multiplicity="1" />
+          <End Role="КнигаИздательство" Type="Self.КнигаИздательство" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаИздательств">
+              <PropertyRef Name="КодИздательства" />
+            </Principal>
+            <Dependent Role="КнигаИздательство">
+              <PropertyRef Name="КодИздательства" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаИздательство_ТаблицаКниг">
+          <End Role="ТаблицаКниг" Type="Self.ТаблицаКниг" Multiplicity="1" />
+          <End Role="КнигаИздательство" Type="Self.КнигаИздательство" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="КнигаИздательство">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаОценки_ТаблицаКниг">
+          <End Role="ТаблицаКниг" Type="Self.ТаблицаКниг" Multiplicity="1" />
+          <End Role="КнигаОценки" Type="Self.КнигаОценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="КнигаОценки">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаОценки_ТаблицаСайтовСОценками">
+          <End Role="ТаблицаСайтовСОценками" Type="Self.ТаблицаСайтовСОценками" Multiplicity="1" />
+          <End Role="КнигаОценки" Type="Self.КнигаОценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаСайтовСОценками">
+              <PropertyRef Name="КодСайта" />
+            </Principal>
+            <Dependent Role="КнигаОценки">
+              <PropertyRef Name="КодСайта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BookstoreISContextContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="АвторКнига" EntityType="Self.АвторКнига" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Администраторы" EntityType="Self.Администраторы" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ЖанрыКниг" EntityType="Self.ЖанрыКниг" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ЗданиеКнига" EntityType="Self.ЗданиеКнига" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="КнигаЖанр" EntityType="Self.КнигаЖанр" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="КнигаИздательство" EntityType="Self.КнигаИздательство" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="КнигаОценки" EntityType="Self.КнигаОценки" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТаблицаАвторов" EntityType="Self.ТаблицаАвторов" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТаблицаЗданий" EntityType="Self.ТаблицаЗданий" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТаблицаИздательств" EntityType="Self.ТаблицаИздательств" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТаблицаКниг" EntityType="Self.ТаблицаКниг" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ТаблицаСайтовСОценками" EntityType="Self.ТаблицаСайтовСОценками" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_АвторКнига_ТаблицаАвторов" Association="Self.FK_АвторКнига_ТаблицаАвторов">
+            <End Role="ТаблицаАвторов" EntitySet="ТаблицаАвторов" />
+            <End Role="АвторКнига" EntitySet="АвторКнига" />
+          </AssociationSet>
+          <AssociationSet Name="FK_АвторКнига_ТаблицаКниг" Association="Self.FK_АвторКнига_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="АвторКнига" EntitySet="АвторКнига" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ЗданиеКнига_ТаблицаЗданий" Association="Self.FK_ЗданиеКнига_ТаблицаЗданий">
+            <End Role="ТаблицаЗданий" EntitySet="ТаблицаЗданий" />
+            <End Role="ЗданиеКнига" EntitySet="ЗданиеКнига" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ЗданиеКнига_ТаблицаКниг" Association="Self.FK_ЗданиеКнига_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="ЗданиеКнига" EntitySet="ЗданиеКнига" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаЖанр_ЖанрыКниг" Association="Self.FK_КнигаЖанр_ЖанрыКниг">
+            <End Role="ЖанрыКниг" EntitySet="ЖанрыКниг" />
+            <End Role="КнигаЖанр" EntitySet="КнигаЖанр" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаЖанр_ТаблицаКниг" Association="Self.FK_КнигаЖанр_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="КнигаЖанр" EntitySet="КнигаЖанр" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаИздательство_ТаблицаИздательств" Association="Self.FK_КнигаИздательство_ТаблицаИздательств">
+            <End Role="ТаблицаИздательств" EntitySet="ТаблицаИздательств" />
+            <End Role="КнигаИздательство" EntitySet="КнигаИздательство" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаИздательство_ТаблицаКниг" Association="Self.FK_КнигаИздательство_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="КнигаИздательство" EntitySet="КнигаИздательство" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаОценки_ТаблицаКниг" Association="Self.FK_КнигаОценки_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="КнигаОценки" EntitySet="КнигаОценки" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаОценки_ТаблицаСайтовСОценками" Association="Self.FK_КнигаОценки_ТаблицаСайтовСОценками">
+            <End Role="ТаблицаСайтовСОценками" EntitySet="ТаблицаСайтовСОценками" />
+            <End Role="КнигаОценки" EntitySet="КнигаОценки" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BookstoreISContext" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="BookstoreApplicationEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="BookstoreISContext.sysdiagrams" />
+          <EntitySet Name="Администраторы" EntityType="BookstoreISContext.Администраторы" />
+          <EntitySet Name="ЖанрыКниг" EntityType="BookstoreISContext.ЖанрыКниг" />
+          <EntitySet Name="ЗданиеКнига" EntityType="BookstoreISContext.ЗданиеКнига" />
+          <EntitySet Name="КнигаОценки" EntityType="BookstoreISContext.КнигаОценки" />
+          <EntitySet Name="ТаблицаАвторов" EntityType="BookstoreISContext.ТаблицаАвторов" />
+          <EntitySet Name="ТаблицаЗданий" EntityType="BookstoreISContext.ТаблицаЗданий" />
+          <EntitySet Name="ТаблицаИздательств" EntityType="BookstoreISContext.ТаблицаИздательств" />
+          <EntitySet Name="ТаблицаКниг" EntityType="BookstoreISContext.ТаблицаКниг" />
+          <EntitySet Name="ТаблицаСайтовСОценками" EntityType="BookstoreISContext.ТаблицаСайтовСОценками" />
+          <AssociationSet Name="FK_ЗданиеКнига_ТаблицаЗданий" Association="BookstoreISContext.FK_ЗданиеКнига_ТаблицаЗданий">
+            <End Role="ТаблицаЗданий" EntitySet="ТаблицаЗданий" />
+            <End Role="ЗданиеКнига" EntitySet="ЗданиеКнига" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ЗданиеКнига_ТаблицаКниг" Association="BookstoreISContext.FK_ЗданиеКнига_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="ЗданиеКнига" EntitySet="ЗданиеКнига" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаОценки_ТаблицаКниг" Association="BookstoreISContext.FK_КнигаОценки_ТаблицаКниг">
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+            <End Role="КнигаОценки" EntitySet="КнигаОценки" />
+          </AssociationSet>
+          <AssociationSet Name="FK_КнигаОценки_ТаблицаСайтовСОценками" Association="BookstoreISContext.FK_КнигаОценки_ТаблицаСайтовСОценками">
+            <End Role="ТаблицаСайтовСОценками" EntitySet="ТаблицаСайтовСОценками" />
+            <End Role="КнигаОценки" EntitySet="КнигаОценки" />
+          </AssociationSet>
+          <AssociationSet Name="АвторКнига" Association="BookstoreISContext.АвторКнига">
+            <End Role="ТаблицаАвторов" EntitySet="ТаблицаАвторов" />
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+          </AssociationSet>
+          <AssociationSet Name="КнигаЖанр" Association="BookstoreISContext.КнигаЖанр">
+            <End Role="ЖанрыКниг" EntitySet="ЖанрыКниг" />
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+          </AssociationSet>
+          <AssociationSet Name="КнигаИздательство" Association="BookstoreISContext.КнигаИздательство">
+            <End Role="ТаблицаИздательств" EntitySet="ТаблицаИздательств" />
+            <End Role="ТаблицаКниг" EntitySet="ТаблицаКниг" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Администраторы">
+          <Key>
+            <PropertyRef Name="Login" />
+          </Key>
+          <Property Name="Login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Имя" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Отчество" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Фамилия" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ЖанрыКниг">
+          <Key>
+            <PropertyRef Name="КодЖанра" />
+          </Key>
+          <Property Name="КодЖанра" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ИмяЖанра" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ТаблицаКниг" Relationship="BookstoreISContext.КнигаЖанр" FromRole="ЖанрыКниг" ToRole="ТаблицаКниг" />
+        </EntityType>
+        <EntityType Name="ЗданиеКнига">
+          <Key>
+            <PropertyRef Name="КодЗдания" />
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="КодЗдания" Type="Int32" Nullable="false" />
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ЦенаКниги" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ТаблицаЗданий" Relationship="BookstoreISContext.FK_ЗданиеКнига_ТаблицаЗданий" FromRole="ЗданиеКнига" ToRole="ТаблицаЗданий" />
+          <NavigationProperty Name="ТаблицаКниг" Relationship="BookstoreISContext.FK_ЗданиеКнига_ТаблицаКниг" FromRole="ЗданиеКнига" ToRole="ТаблицаКниг" />
+        </EntityType>
+        <EntityType Name="КнигаОценки">
+          <Key>
+            <PropertyRef Name="ISBN" />
+            <PropertyRef Name="КодСайта" />
+          </Key>
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="КодСайта" Type="Int32" Nullable="false" />
+          <Property Name="ОценкаПользователей" Type="Double" />
+          <NavigationProperty Name="ТаблицаКниг" Relationship="BookstoreISContext.FK_КнигаОценки_ТаблицаКниг" FromRole="КнигаОценки" ToRole="ТаблицаКниг" />
+          <NavigationProperty Name="ТаблицаСайтовСОценками" Relationship="BookstoreISContext.FK_КнигаОценки_ТаблицаСайтовСОценками" FromRole="КнигаОценки" ToRole="ТаблицаСайтовСОценками" />
+        </EntityType>
+        <EntityType Name="ТаблицаАвторов">
+          <Key>
+            <PropertyRef Name="КодАвтора" />
+          </Key>
+          <Property Name="КодАвтора" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Имя" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Отчество" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Фамилия" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Фотография" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="ТаблицаКниг" Relationship="BookstoreISContext.АвторКнига" FromRole="ТаблицаАвторов" ToRole="ТаблицаКниг" />
+        </EntityType>
+        <EntityType Name="ТаблицаЗданий">
+          <Key>
+            <PropertyRef Name="КодЗдания" />
+          </Key>
+          <Property Name="КодЗдания" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеЗдания" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Город" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Улица" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="НомерЗдания" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Этаж" Type="Int32" />
+          <Property Name="Назначение" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ЗданиеКнига" Relationship="BookstoreISContext.FK_ЗданиеКнига_ТаблицаЗданий" FromRole="ТаблицаЗданий" ToRole="ЗданиеКнига" />
+        </EntityType>
+        <EntityType Name="ТаблицаИздательств">
+          <Key>
+            <PropertyRef Name="КодИздательства" />
+          </Key>
+          <Property Name="КодИздательства" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеИздательства" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Город" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Улица" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Дом" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ТаблицаКниг" Relationship="BookstoreISContext.КнигаИздательство" FromRole="ТаблицаИздательств" ToRole="ТаблицаКниг" />
+        </EntityType>
+        <EntityType Name="ТаблицаКниг">
+          <Key>
+            <PropertyRef Name="ISBN" />
+          </Key>
+          <Property Name="ISBN" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="НазваниеКниги" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ГодВыпуска" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Переплет" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="КоличествоСтраниц" Type="Int32" />
+          <Property Name="ФорматКниги" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Обложка" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="ЗданиеКнига" Relationship="BookstoreISContext.FK_ЗданиеКнига_ТаблицаКниг" FromRole="ТаблицаКниг" ToRole="ЗданиеКнига" />
+          <NavigationProperty Name="КнигаОценки" Relationship="BookstoreISContext.FK_КнигаОценки_ТаблицаКниг" FromRole="ТаблицаКниг" ToRole="КнигаОценки" />
+          <NavigationProperty Name="ТаблицаАвторов" Relationship="BookstoreISContext.АвторКнига" FromRole="ТаблицаКниг" ToRole="ТаблицаАвторов" />
+          <NavigationProperty Name="ЖанрыКниг" Relationship="BookstoreISContext.КнигаЖанр" FromRole="ТаблицаКниг" ToRole="ЖанрыКниг" />
+          <NavigationProperty Name="ТаблицаИздательств" Relationship="BookstoreISContext.КнигаИздательство" FromRole="ТаблицаКниг" ToRole="ТаблицаИздательств" />
+        </EntityType>
+        <EntityType Name="ТаблицаСайтовСОценками">
+          <Key>
+            <PropertyRef Name="КодСайта" />
+          </Key>
+          <Property Name="КодСайта" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="НазваниеСайта" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="КнигаОценки" Relationship="BookstoreISContext.FK_КнигаОценки_ТаблицаСайтовСОценками" FromRole="ТаблицаСайтовСОценками" ToRole="КнигаОценки" />
+        </EntityType>
+        <Association Name="FK_ЗданиеКнига_ТаблицаЗданий">
+          <End Type="BookstoreISContext.ТаблицаЗданий" Role="ТаблицаЗданий" Multiplicity="1" />
+          <End Type="BookstoreISContext.ЗданиеКнига" Role="ЗданиеКнига" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаЗданий">
+              <PropertyRef Name="КодЗдания" />
+            </Principal>
+            <Dependent Role="ЗданиеКнига">
+              <PropertyRef Name="КодЗдания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ЗданиеКнига_ТаблицаКниг">
+          <End Type="BookstoreISContext.ТаблицаКниг" Role="ТаблицаКниг" Multiplicity="1" />
+          <End Type="BookstoreISContext.ЗданиеКнига" Role="ЗданиеКнига" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="ЗданиеКнига">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаОценки_ТаблицаКниг">
+          <End Type="BookstoreISContext.ТаблицаКниг" Role="ТаблицаКниг" Multiplicity="1" />
+          <End Type="BookstoreISContext.КнигаОценки" Role="КнигаОценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаКниг">
+              <PropertyRef Name="ISBN" />
+            </Principal>
+            <Dependent Role="КнигаОценки">
+              <PropertyRef Name="ISBN" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_КнигаОценки_ТаблицаСайтовСОценками">
+          <End Type="BookstoreISContext.ТаблицаСайтовСОценками" Role="ТаблицаСайтовСОценками" Multiplicity="1" />
+          <End Type="BookstoreISContext.КнигаОценки" Role="КнигаОценки" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ТаблицаСайтовСОценками">
+              <PropertyRef Name="КодСайта" />
+            </Principal>
+            <Dependent Role="КнигаОценки">
+              <PropertyRef Name="КодСайта" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="АвторКнига">
+          <End Type="BookstoreISContext.ТаблицаАвторов" Role="ТаблицаАвторов" Multiplicity="*" />
+          <End Type="BookstoreISContext.ТаблицаКниг" Role="ТаблицаКниг" Multiplicity="*" />
+        </Association>
+        <Association Name="КнигаЖанр">
+          <End Type="BookstoreISContext.ЖанрыКниг" Role="ЖанрыКниг" Multiplicity="*" />
+          <End Type="BookstoreISContext.ТаблицаКниг" Role="ТаблицаКниг" Multiplicity="*" />
+        </Association>
+        <Association Name="КнигаИздательство">
+          <End Type="BookstoreISContext.ТаблицаИздательств" Role="ТаблицаИздательств" Multiplicity="*" />
+          <End Type="BookstoreISContext.ТаблицаКниг" Role="ТаблицаКниг" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BookstoreISContextContainer" CdmEntityContainer="BookstoreApplicationEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="BookstoreISContext.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Администраторы">
+            <EntityTypeMapping TypeName="BookstoreISContext.Администраторы">
+              <MappingFragment StoreEntitySet="Администраторы">
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ЖанрыКниг">
+            <EntityTypeMapping TypeName="BookstoreISContext.ЖанрыКниг">
+              <MappingFragment StoreEntitySet="ЖанрыКниг">
+                <ScalarProperty Name="ИмяЖанра" ColumnName="ИмяЖанра" />
+                <ScalarProperty Name="КодЖанра" ColumnName="КодЖанра" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ЗданиеКнига">
+            <EntityTypeMapping TypeName="BookstoreISContext.ЗданиеКнига">
+              <MappingFragment StoreEntitySet="ЗданиеКнига">
+                <ScalarProperty Name="ЦенаКниги" ColumnName="ЦенаКниги" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+                <ScalarProperty Name="КодЗдания" ColumnName="КодЗдания" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="КнигаОценки">
+            <EntityTypeMapping TypeName="BookstoreISContext.КнигаОценки">
+              <MappingFragment StoreEntitySet="КнигаОценки">
+                <ScalarProperty Name="ОценкаПользователей" ColumnName="ОценкаПользователей" />
+                <ScalarProperty Name="КодСайта" ColumnName="КодСайта" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТаблицаАвторов">
+            <EntityTypeMapping TypeName="BookstoreISContext.ТаблицаАвторов">
+              <MappingFragment StoreEntitySet="ТаблицаАвторов">
+                <ScalarProperty Name="Фотография" ColumnName="Фотография" />
+                <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+                <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="КодАвтора" ColumnName="КодАвтора" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТаблицаЗданий">
+            <EntityTypeMapping TypeName="BookstoreISContext.ТаблицаЗданий">
+              <MappingFragment StoreEntitySet="ТаблицаЗданий">
+                <ScalarProperty Name="Назначение" ColumnName="Назначение" />
+                <ScalarProperty Name="Этаж" ColumnName="Этаж" />
+                <ScalarProperty Name="НомерЗдания" ColumnName="НомерЗдания" />
+                <ScalarProperty Name="Улица" ColumnName="Улица" />
+                <ScalarProperty Name="Город" ColumnName="Город" />
+                <ScalarProperty Name="НазваниеЗдания" ColumnName="НазваниеЗдания" />
+                <ScalarProperty Name="КодЗдания" ColumnName="КодЗдания" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТаблицаИздательств">
+            <EntityTypeMapping TypeName="BookstoreISContext.ТаблицаИздательств">
+              <MappingFragment StoreEntitySet="ТаблицаИздательств">
+                <ScalarProperty Name="Дом" ColumnName="Дом" />
+                <ScalarProperty Name="Улица" ColumnName="Улица" />
+                <ScalarProperty Name="Город" ColumnName="Город" />
+                <ScalarProperty Name="НазваниеИздательства" ColumnName="НазваниеИздательства" />
+                <ScalarProperty Name="КодИздательства" ColumnName="КодИздательства" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТаблицаКниг">
+            <EntityTypeMapping TypeName="BookstoreISContext.ТаблицаКниг">
+              <MappingFragment StoreEntitySet="ТаблицаКниг">
+                <ScalarProperty Name="Обложка" ColumnName="Обложка" />
+                <ScalarProperty Name="ФорматКниги" ColumnName="ФорматКниги" />
+                <ScalarProperty Name="КоличествоСтраниц" ColumnName="КоличествоСтраниц" />
+                <ScalarProperty Name="Переплет" ColumnName="Переплет" />
+                <ScalarProperty Name="ГодВыпуска" ColumnName="ГодВыпуска" />
+                <ScalarProperty Name="НазваниеКниги" ColumnName="НазваниеКниги" />
+                <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ТаблицаСайтовСОценками">
+            <EntityTypeMapping TypeName="BookstoreISContext.ТаблицаСайтовСОценками">
+              <MappingFragment StoreEntitySet="ТаблицаСайтовСОценками">
+                <ScalarProperty Name="НазваниеСайта" ColumnName="НазваниеСайта" />
+                <ScalarProperty Name="КодСайта" ColumnName="КодСайта" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="АвторКнига" TypeName="BookstoreISContext.АвторКнига" StoreEntitySet="АвторКнига">
+            <EndProperty Name="ТаблицаКниг">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+            <EndProperty Name="ТаблицаАвторов">
+              <ScalarProperty Name="КодАвтора" ColumnName="КодАвтора" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="КнигаЖанр" TypeName="BookstoreISContext.КнигаЖанр" StoreEntitySet="КнигаЖанр">
+            <EndProperty Name="ТаблицаКниг">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+            <EndProperty Name="ЖанрыКниг">
+              <ScalarProperty Name="КодЖанра" ColumnName="КодЖанра" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="КнигаИздательство" TypeName="BookstoreISContext.КнигаИздательство" StoreEntitySet="КнигаИздательство">
+            <EndProperty Name="ТаблицаКниг">
+              <ScalarProperty Name="ISBN" ColumnName="ISBN" />
+            </EndProperty>
+            <EndProperty Name="ТаблицаИздательств">
+              <ScalarProperty Name="КодИздательства" ColumnName="КодИздательства" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

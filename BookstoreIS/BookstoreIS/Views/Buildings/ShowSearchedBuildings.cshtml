@@ -1,0 +1,73 @@
+﻿@model IEnumerable<object>
+
+@{
+    List<ТаблицаЗданий> listBuildings = Model.ToList()[0] as List<ТаблицаЗданий>;
+}
+@{
+    ViewBag.Title = "Поиск магазинов и складов";
+}
+
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Стили отчетов.css" />
+</head>
+<form action="ShowSearchedBuildings" method="post">
+    <br />
+    <input type="text" name="City" placeholder="Введите город для нахождения магазина или склада..." style="width: 1500px" class="form-control" id="CitySearch" />
+    <br />
+    <br />
+    <input type="submit" class="btn navbar-btn" value="Поиск" id="ButtonCitySearch" />
+</form>
+<h2 class="Heading">Список складов и магазинов</h2>
+@if (Session["CurrentAdmin"] != null)
+{
+    <p>
+        @Html.ActionLink("Добавить", "Create")
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>Код</th>
+        <th>Здание</th>
+        <th>Город</th>
+        <th>Улица</th>
+        <th>Номер дома</th>
+        <th>Этаж</th>
+        <th>Магазин/склад</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in listBuildings)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.КодЗдания)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.НазваниеЗдания)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Город)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Улица)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.НомерЗдания)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Этаж)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Назначение)
+            </td>
+            <td>
+                @if (Session["CurrentAdmin"] != null)
+                {
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.КодЗдания })
+                }
+                @Html.ActionLink("Подробнее", "ShowBuildingDetails", new { Id = item.КодЗдания }, new { target = "_blank" })
+            </td>
+        </tr>
+    }
+
+</table>

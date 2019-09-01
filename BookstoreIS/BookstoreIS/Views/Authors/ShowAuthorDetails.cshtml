@@ -1,0 +1,107 @@
+﻿@model IEnumerable<object>
+
+@{
+    List<BookstoreIS.ТаблицаАвторов> listAuthors = Model.ToList()[0] as List<BookstoreIS.ТаблицаАвторов>;
+    List<BookstoreIS.ТаблицаКниг> listBooks = Model.ToList()[1] as List<BookstoreIS.ТаблицаКниг>;
+    List<string> listGenres = Model.ToList()[2] as List<string>;
+}   
+@{
+    ViewBag.Title = "Информация об авторе";
+}
+
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Site.css" />
+</head>
+@foreach (var item in listAuthors)
+{
+    string title = null;
+    title += item.Имя + " " + item.Фамилия;
+    <h2>@title</h2>
+
+}
+
+@foreach (var item in listAuthors)
+{
+<div>
+    <h4>Информация об авторе</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Номер в системе:</dt>
+        <dd>
+            @Html.DisplayFor(model => item.КодАвтора)
+        </dd>
+        <dt>Имя:</dt>
+        <dd>
+            @Html.DisplayFor(model => item.Имя)
+        </dd>
+
+        <dt>Отчество:</dt>
+        <dd>
+            @Html.DisplayFor(model => item.Отчество)
+        </dd>
+
+        <dt>Фамилия:</dt>
+        <dd>
+            @Html.DisplayFor(model => item.Фамилия)
+        </dd>
+    </dl>
+</div>
+
+    <div>
+        @{
+            var base64 = Convert.ToBase64String(item.Фотография);
+            var imgsrc = string.Format("data:image/gif;base64, {0}", base64);
+        }
+        <img src="@imgsrc" style=" max-width: 200px; max-height: 300px" />
+    </div>
+<p>
+    <hr />
+@if (Session["CurrentAdmin"] != null)
+{
+    @Html.ActionLink("Редактировать", "Edit", new { id = item.КодАвтора })
+}
+    @Html.ActionLink("Назад к списку авторов", "Index")
+</p>
+}
+
+<h3> Книги автора</h3>
+<table class="table">
+    <tr>
+        <th>ISBN</th>
+        <th>Название</th>
+        <th>Жанр</th>
+        <th>Год выпуска</th>
+        <th>Переплет</th>
+        <th></th>
+    </tr>
+
+    @for (int i = 0; i < listBooks.Count; i++)
+    { 
+        <tr>
+            <td id="ISBN">
+                @Html.DisplayFor(modelItem => listBooks[i].ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].НазваниеКниги)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listGenres[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].ГодВыпуска)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks[i].Переплет)
+            </td>
+            <td>
+@if (Session["CurrentAdmin"] != null)
+{
+                @Html.ActionLink("Редактировать", "Edit", new { id = listBooks[i].ISBN }) 
+}
+                @Html.ActionLink("Подробнее", "ShowBookDetails", new { ISBN = listBooks[i].ISBN }) 
+
+            </td>
+        </tr>
+    }
+
+</table>

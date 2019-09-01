@@ -1,0 +1,138 @@
+﻿
+@{
+
+
+    List<string> Years = new List<string> {"2018г", "2017г", "2016г", "2015г", "2014г", "2013г", "2012г", "2011г", "2010г", "2009г", "2008г", "2007г",
+    "2006г","2005г","2004г","2003г","2002г","2001г","2000г","1999г","1998г","1997г","1996г","1995г","1994г","1993г","1992г","1991г","1990г"};
+    List<string> Bindings = new List<string> { "Мягкий", "Твердый", "Интегральный", "С клеевым скреплением" };
+    List<string> Formats = new List<string> { "60x90/8", "75x90/32", "60x82/32", "70x100/32", "70x108/32", "70x100/64", "60x90/16",
+        "70x100/8", "60x84/8", "75x90/32", "84x108/8"};
+}
+@{
+    ViewBag.Title = "Добавление новой книги";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <script type="text/javascript">
+        function ChangeCover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#EditablePicture')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
+
+
+<h2>Новая книга</h2>
+
+@using (Html.BeginForm("SaveNewBook", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">ISBN: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="ISBN" style="width: 1500px" class="form-control ISBNInput" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Название: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Title" placeholder="Введите название книги..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Год выпуска: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="ReleaseYear" required>
+                    @for (int i = 0; i < Years.Count; i++)
+                    {
+                        <option>@Years[i]</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Переплет: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="Binding" required>
+                    @for (int i = 0; i < Bindings.Count; i++)
+                    {
+                        <option>@Bindings[i]</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Количество страниц: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="number" name="Pages" placeholder="Введите количество страниц" style="width: 1500px" class="form-control" required>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Формат: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="Format" required>
+                    @for (int i = 0; i < Formats.Count; i++)
+                    {
+                        <option>@Formats[i]</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="col-md-10">
+            <img style=" max-width: 500px; max-height: 400px" class="col-md-10" id="EditablePicture" alt="У добавляемой книги еще нет обложки." />
+        </div>
+        <form action="SaveNewBook" method="post" enctype="multipart/form-data" id="SaveForm">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="file" name="file" value="Добавить обложку" id="InputFileBook" onchange="ChangeCover(this);" required />
+                    <br />
+                    <div>
+                        <br />
+                        <br />
+                        <text style=" color:chartreuse; font-weight: 600">Хотите ли Вы добавить книгу с вышеуказанными данными и перейти к её редактированию?</text>
+                        <br />
+                        <br />
+                    </div>
+                    <input style="max-width: 500px;" type="submit" value="Добавить книгу и перейти к детальному редактированию" class="btn btn-default" id="submit" />
+                    <br />
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+}

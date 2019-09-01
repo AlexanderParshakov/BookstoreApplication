@@ -1,0 +1,107 @@
+﻿@model int
+
+@{
+    int incremented = Model + 1;
+}
+@{
+    ViewBag.Title = "Добавление нового издательства";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+    <script type="text/javascript">
+        function ChangeCover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#EditablePicture')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
+
+
+<h2>Новое издательство</h2>
+
+@using (Html.BeginForm("SaveNewPublisher", "Publishers", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Код издательства: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="number" value="@Model" name="PublisherCode" style="width: 1500px" class="form-control" required readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Название: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Name" placeholder="Введите название издательства..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+        <hr />
+        <div>
+            <text style="color:gold; font-weight:800" id="OfficeLocation">Местоположение офиса:</text>
+            <br />
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Город: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="City" placeholder="Введите город..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Улица: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Street" placeholder="Введите улицу..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Номер дома: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="Number" placeholder="Введите номер дома..." style="width: 1500px" class="form-control" required />
+            </div>
+        </div>
+        <hr />
+
+        <form action="SaveNewAuthor" method="post" enctype="multipart/form-data" id="SaveForm">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <br />
+                    <div>
+                        <br />
+                        <br />
+                        <text style=" color:chartreuse; font-weight: 600">Хотите ли Вы добавить издательство с вышеуказанными данными?</text>
+                        <br />
+                        <br />
+                    </div>
+                    <input type="submit" value="Добавить издательство" class="btn btn-default" id="submit" />
+                    <br />
+                </div>
+            </div>
+        </form>
+    </div>
+}

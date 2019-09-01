@@ -1,0 +1,80 @@
+﻿@model IEnumerable<object>
+
+@{
+    IEnumerable<BookstoreIS.ТаблицаКниг> listBooks = Model.ToList()[0] as IEnumerable<BookstoreIS.ТаблицаКниг>;
+    List<string> listAuthors = Model.ToList()[1] as List<string>;
+    List<string> listGenres = Model.ToList()[2] as List<string>;
+    string TableHeading = Model.ToList()[3].ToString();
+
+}
+
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Стили отчетов.css" />
+</head>
+<h3 class="Heading">@TableHeading</h3>
+
+@using (Html.BeginForm("ExportToExcel", "Reports", FormMethod.Post))
+{
+    <input value="Скачать отчет в Excel" type="submit" class="form-control" id="Export" name="SubmitButton" />
+}
+@if (listBooks.Count() != 0)
+{
+    <table class="table">
+        <tr>
+            <th>ISBN</th>
+            <th>Название</th>
+            <th>Автор(ы)</th>
+            <th>Жанр</th>
+            <th>Год выпуска</th>
+            <th>Переплет</th>
+
+            <th></th>
+        </tr>
+
+        @for (int i = 0; i < listBooks.ToList().Count; i++)
+        {
+
+            <tr>
+                <td id="ISBN">
+                    @Html.DisplayFor(modelItem => listBooks.ToList()[i].ISBN)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => listBooks.ToList()[i].НазваниеКниги)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => listAuthors[i])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => listGenres[i])
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => listBooks.ToList()[i].ГодВыпуска)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => listBooks.ToList()[i].Переплет)
+                </td>
+                <td>
+                    @if (Session["CurrentAdmin"] != null)
+                    {
+                        <div>
+                            @Html.ActionLink("Редактировать", "Edit", "Books", new { ISBN = listBooks.ToList()[i].ISBN }, new { }) 
+                            @Html.ActionLink("Подробнее", "ShowBookDetails", "Books", new { ISBN = listBooks.ToList()[i].ISBN }, new { target = "_blank" })
+                        </div>
+                    }
+
+                    @if (Session["CurrentAdmin"] == null)
+                    {
+                        <div>
+                            @Html.ActionLink("Подробнее", "ShowBookDetails", "Books", new { ISBN = listBooks.ToList()[i].ISBN }, new { target = "_blank" })
+                        </div>
+                    }
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+@if (listBooks.Count() == 0)
+{
+    <h3 class="Heading">@ViewBag.Message</h3>
+}

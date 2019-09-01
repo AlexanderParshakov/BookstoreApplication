@@ -1,0 +1,118 @@
+﻿@model IEnumerable<object>
+
+@{
+    IEnumerable<BookstoreIS.ТаблицаКниг> listBooks = Model.ToList()[0] as IEnumerable<BookstoreIS.ТаблицаКниг>;
+    List<string> listAuthors = Model.ToList()[1] as List<string>;
+    List<double?> Grades = Model.ToList()[2] as List<double?>;
+    List<string> listGenres = Model.ToList()[3] as List<string>;
+    List<ЖанрыКниг> AllGenres = Model.ToList()[4] as List<ЖанрыКниг>;
+    string Grade = "Нет оценок";
+
+    string CurrentBookName = Session["BookName"] as string;
+}
+@{
+    ViewBag.Title = "Поиск книг";
+}
+
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+</head>
+<form action="ShowSearchedBooks" method="post">
+    <br />
+    <label>Поиск книги  </label>
+    <input type="text" value="@CurrentBookName" name="BookName" placeholder="Введите название книги..." style="width: 1500px" class="form-control" id="BookNameSearch"/>
+    <br />
+
+    <select class="form-control" name="Genre" id="BookGenreSearch">
+        <option>Выберите жанр...</option>
+        @for (int i = 0; i < AllGenres.Count; i++)
+        {
+            if (AllGenres[i] != Session["ChosenGenre"] as ЖанрыКниг)
+            {
+            <option>@AllGenres[i].ИмяЖанра</option>
+            }
+            if (AllGenres[i] == Session["ChosenGenre"] as ЖанрыКниг)
+            {
+                <option selected>@AllGenres[i].ИмяЖанра</option>
+            }
+        }
+    </select>
+    <br />
+    <input type="submit" class="btn navbar-btn" value="Поиск" id="ButtonBookSearch"/>
+</form>
+
+<h2 class="Heading">Список книг</h2>
+
+@if (Session["CurrentAdmin"] != null)
+{
+<p>
+    @Html.ActionLink("Добавить", "Create")
+</p>
+}
+<table class="table">
+    <tr>
+        <th>ISBN</th>
+        <th>Название</th>
+        <th>Автор(ы)</th>
+        <th>Жанр</th>
+        <th>Год выпуска</th>
+        <th>Переплет</th>
+        <th>Оценка</th>
+
+        <th></th>
+    </tr>
+
+    @for (int i = 0; i < listBooks.ToList().Count; i++)
+    {
+
+        <tr>
+            <td id="ISBN">
+                @Html.DisplayFor(modelItem => listBooks.ToList()[i].ISBN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks.ToList()[i].НазваниеКниги)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listAuthors[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listGenres[i])
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks.ToList()[i].ГодВыпуска)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => listBooks.ToList()[i].Переплет)
+            </td>
+            <td>
+                @{Grade = "Нет оценок"; }
+                @if (Grades[i] > 0 == true)
+                {
+                    Grade = Grades[i].ToString();
+                    if (Grade.Length > 3)
+                    {
+                        Grade = Grade.Substring(0, 3);
+                    }
+                }
+                @Grade
+            </td>
+            <td>
+               @if (Session["CurrentAdmin"] != null)
+                {
+                <div>
+                    @Html.ActionLink("Редактировать", "Edit", new { ISBN = listBooks.ToList()[i].ISBN }) 
+                    @Html.ActionLink("Подробнее", "ShowBookDetails", new { ISBN = listBooks.ToList()[i].ISBN }, new { target = "_blank" }) 
+                </div>
+               }
+
+            @if (Session["CurrentAdmin"] == null)
+                {
+                <div>
+                    @Html.ActionLink("Подробнее", "ShowBookDetails", new { ISBN = listBooks.ToList()[i].ISBN }, new { target = "_blank" })
+                </div>
+            }
+            </td>
+        </tr>
+                    }
+
+</table>

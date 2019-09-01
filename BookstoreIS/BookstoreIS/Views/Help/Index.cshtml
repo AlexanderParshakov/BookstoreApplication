@@ -1,0 +1,49 @@
+﻿@model List<object>
+
+@{
+    List<string> Tips = Model.ToList()[0] as List<string>;
+    List<string> Headings = Model.ToList()[1] as List<string>;
+}
+@{
+    ViewBag.Title = "Справка";
+}
+<div style="font-family: Candara;">
+    <h1 style="padding-top: 30px; font-weight: 700; text-align: center; color:gold; font-family: Candara;">Справка для типовых действий на сайте</h1>
+    <hr style="height: 3px; background-color: gold;"/>
+
+
+
+    <h2 style="padding-top: 30px; text-align: center; color:gold; font-family: Candara; font-weight: 600">@Headings[0]</h2>
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[0]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Просмотреть список книг.jpg" />
+    <hr style="height: 3px; background-color: gold;" />
+
+
+
+    <h2 style="padding-top: 30px; text-align: center; color:gold; font-family: Candara; font-weight: 600">@Headings[1]</h2>
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[1]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Перейти к просмотру данных о книге.jpg" />
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 10px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[2]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Форма просмотра данных о книге.jpg" />
+    <hr style="height: 3px; background-color: gold;" />
+
+
+
+    <h2 style="padding-top: 30px; text-align: center; color:gold; font-family: Candara; font-weight: 600">@Headings[2]</h2>
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[3]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Найти по жанру.jpg" />
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[4]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Найденная фантастика.jpg" />
+    <img src="@Url.Content("C:/Users/ASER/Desktop/Studying/BookstoreIS/BookstoreIS/Content/Help Pictures/Просмотреть список книг.jpg")" style="padding-bottom: 20px;" />
+    <hr style="height: 3px; background-color: gold;" />
+
+
+    <h2 style="padding-top: 30px; text-align: center; color:gold; font-family: Candara; font-weight: 600">@Headings[3]</h2>
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[5]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Сформировать отчет.jpg" />
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[6]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Скачать отчет в Excel.jpg" />
+    <p style="font-size:large; max-width:inherit 100px; padding-top: 20px; text-indent: 50px; width: 905px; left: 100px; position:relative;">@Tips[7]</p>
+    <img style="padding-bottom: 20px; max-width: 900px; position: relative; left: 100px;" src="~/Content/Help Pictures/Полученный отчет.jpg" />
+    <hr style="height: 3px; background-color: gold;" />
+</div>

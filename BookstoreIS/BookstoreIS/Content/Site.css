@@ -1,0 +1,137 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+    background-color: dodgerblue;
+}
+
+success{
+    color: chartreuse;
+}
+
+#BookNameSearch {
+    height: 35px;
+    position: absolute;
+    float: left;
+    top: 60px;
+}
+#BookGenreSearch {
+    height: 35px;
+    position: absolute;
+    top: 60px;
+    left: 475px;
+    float: left;
+}
+#ButtonBookSearch {
+    height: 35px;
+    width: 100px;
+    position: absolute;
+    float: left;
+    top: 52px;
+    left: 760px;
+}
+
+
+#AuthorSurnameSearch {
+    height: 35px;
+    position: absolute;
+    float: left;
+    top: 60px;
+}
+#ButtonAuthorSearch {
+    height: 35px;
+    width: 100px;
+    position: absolute;
+    top: 52px;
+    left: 485px;
+}
+
+#CitySearch {
+    height: 35px;
+    position: absolute;
+    top: 60px;
+}
+#ButtonCitySearch {
+    height: 35px;
+    width: 100px;
+    position: absolute;
+    top: 52px;
+    left: 475px;
+}
+
+
+#PublisherNameSearch {
+    height: 35px;
+    position: absolute;
+    top: 60px;
+}
+#ButtonPublisherSearch {
+    height: 35px;
+    width: 100px;
+    position: absolute;
+    top: 52px;
+    left: 485px;
+}
+.Heading{
+    text-align:center;
+}
+
+#EditablePicture {
+    position:relative;
+    top: 0px;
+    left: 165px;
+}
+
+#InputFileBook {
+    color: white;
+    border: 1px solid green;
+    border-radius: 5px;
+    background: red;
+    width: 270px;
+}
+
+#OfficeLocation {
+    position: absolute;
+    float: left;
+    top: 255px;
+    left: 400px;
+}
+
+#SuccessMessage{
+    margin-bottom: 15px;
+}
+
+
+th{
+    text-align: center;
+}
+td{
+    text-align:center;
+}
+
+#ISBN{
+    white-space:nowrap;
+}
+
+tr{
+    height: 3px;
+}

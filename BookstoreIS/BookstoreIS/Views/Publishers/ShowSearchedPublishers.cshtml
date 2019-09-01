@@ -1,0 +1,64 @@
+﻿@model IEnumerable<object>
+
+@{
+    List<ТаблицаИздательств> listPublishers = Model.ToList()[0] as List<ТаблицаИздательств>;
+}
+
+@{
+    ViewBag.Title = "Поиск издательств";
+}
+
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Стили отчетов.css" />
+</head>
+<form action="ShowSearchedPublishers" method="post">
+    <br />
+    <input type="text" name="Name" placeholder="Введите название издательства..." style="width: 1500px" class="form-control" id="PublisherNameSearch" />
+    <br />
+    <br />
+    <input type="submit" class="btn navbar-btn" value="Поиск" id="ButtonPublisherSearch" />
+</form>
+
+<h2 class="Heading">Издательства</h2>
+
+@if (Session["CurrentAdmin"] != null)
+{
+    <p>
+        @Html.ActionLink("Добавить", "Create")
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>Название</th>
+        <th>Город</th>
+        <th>Улица</th>
+        <th>Дом</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in listPublishers)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.НазваниеИздательства)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Город)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Улица)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Дом)
+            </td>
+            <td>
+                @if (Session["CurrentAdmin"] != null)
+                {
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.КодИздательства })
+                }
+                @Html.ActionLink("Подробнее", "ShowPublisherDetails", new { Id = item.КодИздательства }, new { target = "_blank" })
+            </td>
+        </tr>
+    }
+
+</table>

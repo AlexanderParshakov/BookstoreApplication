@@ -1,0 +1,66 @@
+﻿@model IEnumerable<object>
+@{
+    List<string> listBooks = Model.ToList()[0] as List<string>;
+    List<string> listAuthors = Model.ToList()[1] as List<string>;
+    List<string> listBuildings = Model.ToList()[2] as List<string>;
+    List<string> listPublishers = Model.ToList()[3] as List<string>;
+    List<string> listGenres = Model.ToList()[4] as List<string>;
+}
+@{
+    ViewBag.Title = "Построение отчета";
+}
+<head>
+    <link type="text/css" rel="stylesheet" href="~/Content/Стили отчетов.css" />
+</head>
+<h1 name="random" id="PrimaryHeading">Построение отчета</h1>
+
+@using (Ajax.BeginForm("GetBooksByParameters", "Reports", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <form>
+            <select class="form-control" name="AuthorLine" id="ConstructAuthor">
+                <option>Выберите автора...</option>
+                @for (int i = 0; i < listAuthors.Count; i++)
+                {
+                    <option>@listAuthors[i]</option>
+                }
+            </select>
+
+            <select class="form-control" name="BuildingLine" id="ConstructBuilding">
+                <option>Выберите магазин или склад...</option>
+                @for (int i = 0; i < listBuildings.Count; i++)
+                {
+                    <option>@listBuildings[i]</option>
+                }
+            </select>
+
+            <select class="form-control" name="PublisherLine" id="ConstructPublisher">
+                <option>Выберите издательство...</option>
+                @for (int i = 0; i < listPublishers.Count; i++)
+                {
+                    <option>@listPublishers[i]</option>
+                }
+            </select>
+
+            <select class="form-control" name="GenreLine" id="ConstructGenre">
+                <option>Выберите жанр...</option>
+                @for (int i = 0; i < listGenres.Count; i++)
+                {
+                    <option>@listGenres[i]</option>
+                }
+            </select>
+
+            <hr id="Line" />
+
+            <input value="Сформировать отчет" type="submit" class="form-control" id="Submit" name="SubmitButton"/>
+            <input value="Очистить параметры" type="reset" class="form-control" id="Clear" name="SubmitButton"/>
+            <hr id="Line2" />
+        </form>
+    </div> // кнопки ввода
+    
+
+    <div id="message">
+
+    </div>
+}
+

@@ -1,0 +1,306 @@
+﻿@model IEnumerable<object>
+@{
+
+    List<ТаблицаКниг> listBooks = Model.ToList()[0] as List<ТаблицаКниг>;
+    List<string> listAuthors = Model.ToList()[1] as List<string>;
+    List<string> listBookAuthors = Model.ToList()[2] as List<string>;
+    List<string> listBuildings = Model.ToList()[3] as List<string>;
+    List<string> listPublishers = Model.ToList()[4] as List<string>;
+    List<string> listGenres = Model.ToList()[5] as List<string>;
+
+
+    List<string> Years = new List<string> {"2018г", "2017г", "2016г", "2015г", "2014г", "2013г", "2012г", "2011г", "2010г", "2009г", "2008г", "2007г",
+    "2006г","2005г","2004г","2003г","2002г","2001г","2000г","1999г","1998г","1997г","1996г","1995г","1994г","1993г","1992г","1991г","1990г"};
+    List<string> Bindings = new List<string> { "Мягкий", "Твердый", "Интегральный", "С клеевым скреплением" };
+    List<string> Formats = new List<string> { "60x90/8", "75x90/32", "60x82/32", "70x100/32", "70x108/32", "70x100/64", "60x90/16",
+        "70x100/8", "60x84/8", "75x90/32", "84x108/8"};
+
+    string ISBN = listBooks[0].ISBN;
+    string Title = listBooks[0].НазваниеКниги;
+    int? NumberOfPages = listBooks[0].КоличествоСтраниц;
+    string Binding = listBooks[0].Переплет;
+    string Year = listBooks[0].ГодВыпуска;
+    string Format = listBooks[0].ФорматКниги;
+}
+@{
+    ViewBag.Title = "Изменение данных о книге";
+}
+
+<head>
+    <link type="text/css" rel="stylesheet" href="../../Content/Стили редактирования книги.css" />
+    <script type="text/javascript">
+        function ChangeCover(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#EditablePicture')
+                        .attr('src', e.target.result)
+                        .width(300)
+                        .height(400);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</head>
+<h2 id="HeadingBook">@listBooks[0].НазваниеКниги</h2>
+
+@using (Html.BeginForm("SaveChanges", "Books", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4 id="HeadingChange">Внесение изменений</h4>
+        <hr />
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">ISBN: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="ISBN" style="width: 1500px" class="form-control ISBNInput" value="@ISBN" readonly="readonly">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Название: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="text" name="title" placeholder="Введите название книги..." style="width: 1500px" class="form-control" value="@Title">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Год выпуска: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="ReleaseYear">
+                    @for (int i = 0; i < Years.Count; i++)
+                    {
+                        if (Years[i] != Year)
+                        {
+                            <option>@Years[i]</option>
+                        }
+                        if (Years[i] == Year)
+                        {
+                            <option selected="selected">@Years[i]</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Переплет: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="binding">
+                    @for (int i = 0; i < Bindings.Count; i++)
+                    {
+                        if (Bindings[i] != Binding)
+                        {
+                            <option>@Bindings[i]</option>
+                        }
+                        if (Bindings[i] == Binding)
+                        {
+                            <option selected="selected">@Bindings[i]</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Кол-во страниц: </label>
+            </div>
+            <div class="col-md-10">
+                <input type="number" name="pages" placeholder="Введите количество страниц" style="width: 1500px" class="form-control" value=@NumberOfPages>
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Формат: </label>
+            </div>
+            <div class="col-md-10">
+                <select class="form-control" name="format">
+                    @for (int i = 0; i < Formats.Count; i++)
+                    {
+                        if (Formats[i] != Format)
+                        {
+                            <option>@Formats[i]</option>
+                        }
+                        if (Formats[i] == Format)
+                        {
+                            <option selected="selected">@Formats[i]</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div>
+                <label class=" control-label col-md-2">Автор(ы): </label>
+            </div>
+            <div class="col-md-10">
+                @foreach (var item in listBookAuthors)
+                {
+                    <div>
+                        <text style="max-width: 280px;" class="form-control" name="authors">@item</text>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-10">
+            @{
+                if (listBooks[0].Обложка != null)
+                {
+                    var base64 = Convert.ToBase64String(listBooks[0].Обложка);
+                    var imgsrc = string.Format("data:image/gif;base64, {0}", base64);
+                    <img src="@imgsrc" style=" max-width: 300px; max-height: 400px" class="col-md-10" id="EditablePicture" alt="У этой книги еще нет обложки. Вы можете ее загрузить." />
+                }
+                if (listBooks[0].Обложка == null)
+                {
+
+                    <img style=" max-width: 500px; max-height: 400px" class="col-md-10" id="EditablePicture" alt="У этой книги еще нет обложки." />
+                }
+            }
+
+        </div>
+
+
+        <form action="SaveNewBook" method="post" enctype="multipart/form-data" id="SaveForm">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="file" name="file" value="Сменить обложку" id="InputFileBook" onchange="ChangeCover(this);" />
+                    <br />
+                    <div>
+                        <br />
+                        <br />
+                        <text style=" color:chartreuse; font-weight: 600">Хотите ли Вы сохранить изменения?</text>
+                        <br />
+                        <br />
+                    </div>
+                    <input type="submit" value="Сохранить изменения" class="btn btn-default" id="submit" />
+                    <br />
+                </div>
+            </div>
+        </form>
+
+        <div id="Error"><br /></div>
+    </div>
+
+                }
+
+
+<div id="VerticalLine1">
+
+</div>
+<div id="VerticalLine2">
+
+</div>
+<div id="VerticalLine3">
+
+</div>
+@using (Ajax.BeginForm("HandleAuthorConnection", "Books", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message" }, new { enctype = "multipart/form-data" }))
+{
+    <div id="message">
+
+    </div>
+    <form method="post">
+        <h3 id="HeadingAuthor">Авторы книги</h3>
+        <select required class="form-control" name="AuthorLine" id="SelectAuthor">
+            <option>Выберите автора...</option>
+            @for (int i = 0; i < listAuthors.Count; i++)
+                {
+                <option>@listAuthors[i]</option>
+            }
+        </select>
+        <br />
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" id="AddAuthor"/>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" id="RemoveAuthor"/>
+        </div>
+    </form>
+}
+
+@using (Ajax.BeginForm("HandleBuildingConnection", "Books", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message1" }, new { enctype = "multipart/form-data" }))
+{
+    <div id="message1"></div>
+    <div>
+        <form action="HandleBuildingConnection" method="post">
+            <div>
+                <text id="PriceLabel">Цена: </text>
+            </div>
+            <h3 id="HeadingBuilding">Места хранения и продажи книги</h3>
+            <select required class="form-control" name="BuildingLine" id="SelectBuilding">
+                <option>Выберите здание...</option>
+                @for (int i = 0; i < listBuildings.Count; i++)
+                {
+                    <option>@listBuildings[i]</option>
+                }
+            </select>
+            <br />
+            <input type="number" name="Price" class="form-control" id="PriceInput"/>
+        </form>
+
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" id="AddBuilding" />
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" id="RemoveBuilding"/>
+        </div>
+    </div>
+}
+
+@using (Ajax.BeginForm("HandlePublisherConnection", "Books", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message2" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <form action="HandlePublisherConnection" method="post">
+            <h3 id="HeadingPublisher">Издательства книги</h3>
+            <select required class="form-control" name="PublisherLine" id="SelectPublisher">
+                <option>Выберите издательство...</option>
+                @for (int i = 0; i < listPublishers.Count; i++)
+                {
+                    <option>@listPublishers[i]</option>
+                }
+            </select>
+            <br />
+        </form>
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" id="AddPublisher"/>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" id="RemovePublisher"/>
+        </div>
+        <div id="message2"></div>
+    </div>
+}
+
+@using (Ajax.BeginForm("HandleGenreConnection", "Books", new AjaxOptions() { HttpMethod = "post", UpdateTargetId = "message3" }, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <form action="HandleGenreConnection" method="post">
+            <h3 id="HeadingGenre">Жанры книги</h3>
+            <select required class="form-control" name="GenreLine" id="SelectGenre">
+                <option>Выберите жанр...</option>
+                @for (int i = 0; i < listGenres.Count; i++)
+                {
+                    <option>@listGenres[i]</option>
+                }
+            </select>
+            <br />
+        </form>
+        <div>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Добавить связь" id="AddGenre"/>
+            <input type="submit" class="btn btn-default" name="submitButton" value="Удалить связь" id="RemoveGenre"/>
+        </div>
+        <div id="message3"></div>
+    </div>
+}
+
